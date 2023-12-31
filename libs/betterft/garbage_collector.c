@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rude-jes <rude-jes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rude-jes <ruipaulo.unify@outlook.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 14:33:13 by rude-jes          #+#    #+#             */
-/*   Updated: 2023/12/27 16:23:22 by rude-jes         ###   ########.fr       */
+/*   Updated: 2023/12/31 20:11:23 by rude-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "betterft.h"
-#include "../pipex_bonus.h"
+#include "../../src/pipex.h"
 
 t_list	**getgarbage(void)
 {

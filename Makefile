@@ -72,10 +72,10 @@ export BONUS_HEADER
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-BETTERFT_PATH = ./betterft/
+BETTERFT_PATH = libs/betterft/
 BETTERFT_LIB = $(BETTERFT_PATH:%=%betterft.a)
 
-BONUS_BETTERFT_PATH = ./betterft_bonus/
+BONUS_BETTERFT_PATH = libs/betterft_bonus/
 BONUS_BETTERFT_LIB = $(BONUS_BETTERFT_PATH:%=%betterft_bonus.a)
 
 
@@ -86,7 +86,7 @@ SRC = 	pipex \
 		utils/pathser \
 		utils/runner \
 
-CFILES = $(SRC:%=%.c)
+CFILES = $(SRC:%=src/%.c)
 
 BONUS_SRC =	pipex_bonus \
 			utils_bonus/argument_parser_bonus \
@@ -96,7 +96,7 @@ BONUS_SRC =	pipex_bonus \
 			utils_bonus/pathser_bonus \
 			utils_bonus/runner_bonus \
 
-BONUS_CFILES = $(BONUS_SRC:%=%.c)
+BONUS_CFILES = $(BONUS_SRC:%=src/%.c)
 
 NAME = pipex
 BONUS_NAME = pipex_bonus
