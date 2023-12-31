@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rude-jes <rude-jes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rude-jes <ruipaulo.unify@outlook.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 14:38:21 by rude-jes          #+#    #+#             */
-/*   Updated: 2023/12/29 14:58:57 by rude-jes         ###   ########.fr       */
+/*   Updated: 2023/12/31 14:47:24 by rude-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,17 @@ static t_pipex	*new_pipex(int argc, char **argv, char **envp)
 
 	pipex = galloc(sizeof(t_pipex));
 	pipex->name = get_progname(argv);
-	pipex->in = argv[1];
-	if (!ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])))
-	{
-		pipex->in = init_heredoc(argv[2], pipex);
-		argv[1] = argv[0];
-		argv[2] = HEREDOC_FILENAME;
-		argv++;
-		argc--;
-	}
+	pipex->in = init_heredoc(&argc, &argv, pipex);
+	pipex->out = argv[argc - 1];
+	if (pipex->heredoc)
+		pipex->fd_out = open(pipex->out, O_WRONLY | O_CREAT | O_APPEND, 00644);
+	else
+		pipex->fd_out = open(pipex->out, O_WRONLY | O_CREAT | O_TRUNC, 00644);
+	if (pipex->fd_out < 0)
+		progcontextmsg(*pipex, pipex->out, strerror(errno));
 	pipex->fd_in = open(pipex->in, O_RDONLY);
 	if (pipex->fd_in < 0)
 		progcontextmsg(*pipex, pipex->in, strerror(errno));
-	pipex->out = argv[argc - 1];
-	pipex->fd_out = open(pipex->out, O_WRONLY | O_CREAT | O_TRUNC, 00644);
-	if (pipex->fd_out < 0)
-		exitprogcontextmsg(*pipex, pipex->out, strerror(errno));
 	pipex->envp = envp;
 	pipex->nbcommands = 0;
 	pipex->commands = fetch_commands(pipex, argc, argv);

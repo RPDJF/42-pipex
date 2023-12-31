@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rude-jes <rude-jes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rude-jes <ruipaulo.unify@outlook.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 17:36:49 by rude-jes          #+#    #+#             */
-/*   Updated: 2023/12/29 14:38:03 by rude-jes         ###   ########.fr       */
+/*   Updated: 2023/12/31 14:34:45 by rude-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	close_heredoc(int fd, t_pipex *pipex)
 		unlink(HEREDOC_FILENAME);
 		exitprogmsg(*pipex, strerror(errno));
 	}
-	pipex->heredoc = true;
 }
 
 static char	*get_input(void)
@@ -56,13 +55,20 @@ static int	write_temp(char *limiter, t_pipex *pipex, int fd)
 	return (i);
 }
 
-char	*init_heredoc(char *limiter, t_pipex *pipex)
+char	*init_heredoc(int *argc, char ***argv, t_pipex *pipex)
 {
 	int	fd;
 
+	if (ft_strncmp((*argv)[1], "here_doc", ft_strlen((*argv)[1])))
+		return ((*argv)[1]);
+	pipex->heredoc = true;
 	fd = open(HEREDOC_FILENAME, O_WRONLY | O_CREAT | O_TRUNC, 00644);
 	if (fd < 0)
 		progcontextmsg(*pipex, HEREDOC_FILENAME, strerror(errno));
-	write_temp(limiter, pipex, fd);
+	write_temp((*argv)[2], pipex, fd);
+	(*argv)[1] = (*argv)[0];
+	(*argv)[2] = HEREDOC_FILENAME;
+	(*argv)++;
+	(*argc)--;
 	return (HEREDOC_FILENAME);
 }

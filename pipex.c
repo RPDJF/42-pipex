@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rude-jes <rude-jes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rude-jes <ruipaulo.unify@outlook.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 14:38:21 by rude-jes          #+#    #+#             */
-/*   Updated: 2023/12/29 14:57:56 by rude-jes         ###   ########.fr       */
+/*   Updated: 2023/12/31 14:37:15 by rude-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ static t_pipex	*new_pipex(int argc, char **argv, char **envp)
 	pipex->name = get_progname(argv);
 	pipex->in = argv[1];
 	pipex->fd_in = open(pipex->in, O_RDONLY);
-	if (pipex->fd_in < 0)
-		progcontextmsg(*pipex, pipex->in, strerror(errno));
 	pipex->out = argv[argc - 1];
 	pipex->fd_out = open(pipex->out, O_WRONLY | O_CREAT | O_TRUNC, 00644);
 	if (pipex->fd_out < 0)
-		exitprogcontextmsg(*pipex, pipex->out, strerror(errno));
+		progcontextmsg(*pipex, pipex->out, strerror(errno));
+	if (pipex->fd_in < 0)
+		progcontextmsg(*pipex, pipex->in, strerror(errno));
 	pipex->envp = envp;
 	pipex->nbcommands = 0;
 	pipex->commands = fetch_commands(pipex, argc, argv);

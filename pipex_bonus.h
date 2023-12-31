@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rude-jes <rude-jes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rude-jes <ruipaulo.unify@outlook.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 14:37:31 by rude-jes          #+#    #+#             */
-/*   Updated: 2023/12/29 14:15:52 by rude-jes         ###   ########.fr       */
+/*   Updated: 2023/12/31 14:28:26 by rude-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	exitprogcontextmsg(t_pipex pipex, char *context, char *msg);
 
 //		initialize heredoc
 //		creates a temporary file
-char	*init_heredoc(char *limiter, t_pipex *pipex);
+char	*init_heredoc(int *argc, char ***argv, t_pipex *pipex);
 
 //	FROM FILE utils_bonus/pathser_bonus.c
 
